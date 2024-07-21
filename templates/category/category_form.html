@@ -1,0 +1,18 @@
+<!-- templates/category/category_form.html -->
+{% extends 'base.html' %}
+
+{% block title %}Create Category{% endblock %}
+
+{% block content %}
+<h1>Create Category</h1>
+<form method="post">
+    {% csrf_token %}
+    <div>
+        <label for="{{ form.name.id_for_label }}">Name:</label>
+        {{ form.name }}
+    </div>
+    <div>
+        <button type="submit">Save</button>
+    </div>
+</form>
+{% endblock %}

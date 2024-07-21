@@ -1,0 +1,38 @@
+<!-- templates/task/task_form.html -->
+{% extends 'base.html' %}
+
+{% block title %}Create Task{% endblock %}
+
+{% block content %}
+<h1>Create Task</h1>
+<form method="post">
+    {% csrf_token %}
+    <div>
+        <label for="{{ form.title.id_for_label }}">Title:</label>
+        {{ form.title }}
+    </div>
+    <div>
+        <label for="{{ form.description.id_for_label }}">Description:</label>
+        {{ form.description }}
+    </div>
+    <div>
+        <label for="{{ form.priority.id_for_label }}">Priority:</label>
+        {{ form.priority }}
+    </div>
+    <div>
+        <label for="{{ form.is_completed.id_for_label }}">Completed:</label>
+        {{ form.is_completed }}
+    </div>
+    <div>
+        <label for="{{ form.deadline.id_for_label }}">Deadline:</label>
+        {{ form.deadline }}
+    </div>
+    <div>
+        <label for="{{ form.category.id_for_label }}">Category:</label>
+        {{ form.category }}
+    </div>
+    <div>
+        <button type="submit">Save</button>
+    </div>
+</form>
+{% endblock %}
