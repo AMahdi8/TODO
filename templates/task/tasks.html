@@ -1,0 +1,76 @@
+<!-- templates/task/tasks.html -->
+{% extends 'base.html' %}
+
+{% block title %}Tasks{% endblock %}
+
+{% block content %}
+<h1>Tasks</h1>
+
+<form method="get">
+    <div>
+        <label for="category">Category:</label>
+        <select name="category"
+            id="category">
+            <option value="">All</option>
+            {% for category in categories %}
+            <option value="{{ category.id }}"
+                {% if category.id == selected_category.id %}selected{% endif %}>{{ category.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div>
+        <label for="search">Search:</label>
+        <input type="text"
+            name="search"
+            id="search"
+            value="{{ search }}">
+    </div>
+
+    <div>
+        <label for="priority">Priority:</label>
+        <select name="priority"
+            id="priority">
+            <option value="">All</option>
+            <option value="1"
+                {% if priority == '1' %}selected{% endif %}>1</option>
+            <option value="2"
+                {% if priority == '2' %}selected{% endif %}>2</option>
+            <option value="3"
+                {% if priority == '3' %}selected{% endif %}>3</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="is_completed">Completed:</label>
+        <select name="is_completed"
+            id="is_completed">
+            <option value="">All</option>
+            <option value="true"
+                {% if is_completed == 'true' %}selected{% endif %}>Yes</option>
+            <option value="false"
+                {% if is_completed == 'false' %}selected{% endif %}>No</option>
+        </select>
+    </div>
+
+    <div>
+        <button type="submit">Filter</button>
+    </div>
+</form>
+
+<h2>Task List</h2>
+<ul>
+    {% for task in tasks %}
+    <li>
+        <strong>{{ task.title }}</strong><br>
+        {{ task.description }}<br>
+        Priority: {{ task.priority }}<br>
+        Completed: {{ task.is_completed }}<br>
+        Deadline: {{ task.deadline }}<br>
+        Category: {{ task.category.name }}
+    </li>
+    {% endfor %}
+</ul>
+
+<p>Total tasks: {{ count }}</p>
+{% endblock %}
