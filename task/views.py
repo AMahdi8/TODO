@@ -76,7 +76,7 @@ class TaskCreate(LoginRequiredMixin, CreateView):
     model = Tasks
     form_class = TaskCreateForm
     template_name = 'task/task_form.html'
-    success_url = reverse_lazy('task_list')
+    success_url = reverse_lazy('tasks')
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
