@@ -57,7 +57,9 @@ class TasksList(LoginRequiredMixin, ListView):
                 is_completed=is_completed_bool)
 
         context['count'] = context['tasks'].count()
-
+        for i in range(len(context['tasks'])):
+            context['tasks'][i].description = context['tasks'][i].description[:20]
+        context['absolute_url'] = self.request.build_absolute_uri()
         return context
 
 
@@ -75,7 +77,7 @@ class TaskDetail(LoginRequiredMixin, DetailView):
 class TaskCreate(LoginRequiredMixin, CreateView):
     model = Tasks
     form_class = TaskCreateForm
-    template_name = 'task/task_form.html'
+    template_name = 'task/create.html'
     success_url = reverse_lazy('tasks')
 
     def get_form(self, form_class=None):
@@ -88,11 +90,15 @@ class TaskCreate(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['create'] = True
+        return context
 
 class TaskUpdate(LoginRequiredMixin, UpdateView):
     model = Tasks
     fields = ['title', 'description', 'priority', 'is_completed', 'category']
-    template_name = 'task/task_form.html'
+    template_name = 'task/create.html'
     success_url = reverse_lazy('tasks')
 
     def get_queryset(self):

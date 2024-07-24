@@ -3,10 +3,43 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-    <h1>Login</h1>
-    <form method="post" action="{% url 'login' %}">
+<div class="container">
+    <div class="row my-3">
+        <h1>Login</h1>
+    </div>
+    <form class="d-flex flex-column justify-content-center" method="post" action="{% url 'login' %}">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Login</button>
+        <div class="row mt-3 justify-content-evenly">
+            <div class="row mx-auto my-2">
+                <label for="id_username">username:</label>
+                <input class="form-control" placeholder="username" type="text" id="id_username" name="username" value="{{ form.username.value|default_if_none:'' }}">
+                {% if form.username.errors %}
+                <p>{{ form.username.errors }}</p>
+                {% endif %}
+            </div>           
+            <div class="row mx-auto my-2">
+                <label for="id_password">password:</label>
+                <input placeholder="password" class="form-control" type="password" id="id_password" name="password" value="{{ form.password.value|default_if_none:'' }}">
+                {% if form.password.errors %}
+                <p>{{ form.password.errors }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if form.non_field_errors %}
+        <div class="row mx-auto my-2">
+            <p>{{ form.non_field_errors }}</p>
+        </div>
+        {% endif %}
+
+        <div class="container-fluid row text-center mt-5">
+            <div class="col-6">
+                <button class="col btn btn-primary w-75" type="submit">Login</button>
+            </div>
+            <div class="col-6">
+                <a class="col btn btn-primary w-75" href="{% url 'register' %}">register</a>
+            </div>
+        </div>
     </form>
+</div>
 {% endblock %}

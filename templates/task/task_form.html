@@ -7,7 +7,15 @@
 <h1>Update Task</h1>
 <form method="post">
     {% csrf_token %}
+    
     {{ form.as_p }}
+    {{ form.title }}
+    {{ form.description }}
+    {{ form.priority }}
+    {{ form.Is_completed }}
+    {{ form.Deadline }}
+    {{ form.Category }}
+
     <button type="submit">Save</button>
 </form>
 {% endblock %}

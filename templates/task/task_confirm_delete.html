@@ -4,10 +4,16 @@
 {% block title %}Delete Task{% endblock %}
 
 {% block content %}
-<h1>Are you sure you want to delete this task?</h1>
+<h1 class="my-5">Are you sure you want to delete this task?</h1>
 <form method="post">
     {% csrf_token %}
-    <button type="submit">Yes, delete</button>
-    <a href="{% url 'tasks' %}">Cancel</a>
+    <div class="text-center row">
+        <div class="col">
+            <button class="btn btn-danger w-50" type="submit">Yes, delete</button>
+        </div>
+        <div class="col">
+            <a  class="btn btn-primary w-50" href="{% url 'tasks' %}">Cancel</a>
+        </div>
+    </div>
 </form>
 {% endblock %}

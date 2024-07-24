@@ -3,36 +3,77 @@
 
 {% block title %}Create Task{% endblock %}
 
+
 {% block content %}
-<h1>Create Task</h1>
-<form method="post">
+{% if create %}
+
+<h1 class="mt-5 mb-7">Create Task</h1>
+{% else %}
+<h1 class="mt-5 mb-7">Update Task</h1>
+
+{%endif%}
+
+<form class="row p-2 " method="post">
     {% csrf_token %}
-    <div>
-        <label for="{{ form.title.id_for_label }}">Title:</label>
-        {{ form.title }}
+    <div class="row">
+        <div class="col-8">
+            <div class=" row mx-auto mb-2">
+                <label for="id_title">Title:</label>
+                <input class="form-control" type="text" id="id_title" name="title" value="{{ form.title.value|default_if_none:'' }}">
+                {% if form.title.errors %}
+                <p>{{ form.title.errors }}</p>
+                {% endif %}
+            </div>
+            <div class="row mt-4 mx-auto mb-2">
+                <label for="id_description">Description:</label>
+                <textarea class="form-control" id="id_description" name="description">{{ form.description.value|default_if_none:'' }}</textarea>
+                {% if form.description.errors %}
+                <p>{{ form.description.errors }}</p>
+                {% endif %}
+            </div>
+            <div class="row mt-4 mx-auto mb-2">
+                <div class="p-0 col-9">
+                    <label for="id_category">Category:</label>
+                    <select class="form-control" id="id_category" name="category">
+                        <option value="">Select Category</option>
+                        {% for category in form.fields.category.queryset %}
+                        <option value="{{ category.id }}" {% if category.id == form.category.value %}selected{% endif %}>{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                    {% if form.category.errors %}
+                    <p>{{ form.category.errors }}</p>
+                    {% endif %}
+                </div>
+                <div class="d-flex justify-content-end p-0 align-items-end col"><a class="btn btn-primary" href="">edit</a></div>
+            </div>
+            <div class="row mt-4 mx-auto mb-2">
+                <label for="{{ form.priority.id_for_label }}">Priority:</label>
+                {{ form.priority }}
+            </div>
+            <div class="row mt-4 mx-auto mb-2">
+                <label for="id_deadline">Deadline:</label>
+                <input class="form-control" type="date" id="id_deadline" name="deadline" value="{{ form.deadline.value|default_if_none:'' }}">
+                {% if form.deadline.errors %}
+                <p>{{ form.deadline.errors }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-4">     
+            <div class="mt-3 mb-2 col-12 text-center row ">
+                <div class="fw-bold form-check form-switch form-check-reverse col-9 pt-5 my-5">
+                    
+                        <label class="form-check-label for="id_is_completed">Completed:</label>
+                        <input class="form-check-input" role="switch" type="checkbox" id="id_is_completed" name="is_completed" {% if form.is_completed.value %}checked{% endif %}>
+                        {% if form.is_completed.errors %}
+                            <p>{{ form.is_completed.errors }}</p>
+                        {% endif %}
+                    
+                </div>
+                <div class="col-12">
+                    <button class="btn btn-primary mb-5 px-4" type="submit">Save</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <label for="{{ form.description.id_for_label }}">Description:</label>
-        {{ form.description }}
-    </div>
-    <div>
-        <label for="{{ form.priority.id_for_label }}">Priority:</label>
-        {{ form.priority }}
-    </div>
-    <div>
-        <label for="{{ form.is_completed.id_for_label }}">Completed:</label>
-        {{ form.is_completed }}
-    </div>
-    <div>
-        <label for="{{ form.deadline.id_for_label }}">Deadline:</label>
-        {{ form.deadline }}
-    </div>
-    <div>
-        <label for="{{ form.category.id_for_label }}">Category:</label>
-        {{ form.category }}
-    </div>
-    <div>
-        <button type="submit">Save</button>
-    </div>
-</form>
+    </form>
 {% endblock %}

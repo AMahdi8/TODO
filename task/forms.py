@@ -3,7 +3,7 @@ from .models import Category, Tasks
 
 class TaskCreateForm(forms.ModelForm):
     category = forms.ModelChoiceField(
-        queryset=Category.objects.all(), required=True)
+        queryset=Category.objects.all(), required=False)
 
     class Meta:
         model = Tasks
