@@ -95,6 +95,7 @@ class TaskCreate(LoginRequiredMixin, CreateView):
         context['create'] = True
         return context
 
+
 class TaskUpdate(LoginRequiredMixin, UpdateView):
     model = Tasks
     fields = ['title', 'description', 'priority', 'is_completed', 'category']
@@ -155,3 +156,15 @@ class CategoryDelete(LoginRequiredMixin, DeleteView):
         if category.user != self.request.user:
             raise PermissionDenied()
         return category
+
+
+class CategoryList(LoginRequiredMixin, ListView):
+    model = Category
+    context_object_name = 'categories'
+    template_name = 'category/categories.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = context['categories'].filter(
+            user=self.request.user)
+        return context
