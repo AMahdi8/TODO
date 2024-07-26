@@ -4,15 +4,22 @@
 {% block title %}Create Category{% endblock %}
 
 {% block content %}
-<h1>Create Category</h1>
+<h1 class="my-4">Create Category</h1>
 <form method="post">
     {% csrf_token %}
+    <div class="row mx-auto my-2">
+        <div class="col-8">
+            <label for="id_username">name:</label>
+            <input class="form-control" placeholder="name" type="text" id="id_username" name="name" value="{{ form.name.value|default_if_none:'' }}">
+            {% if form.name.errors %}
+            <p>{{ form.name.errors }}</p>
+            {% endif %}
+        </div>
+        <div class="col-3 align-content-end">
+            <button class="btn btn-primary w-50" type="submit">Save</button>
+        </div>
+    </div> 
     <div>
-        <label for="{{ form.name.id_for_label }}">Name:</label>
-        {{ form.name }}
-    </div>
-    <div>
-        <button type="submit">Save</button>
     </div>
 </form>
 {% endblock %}

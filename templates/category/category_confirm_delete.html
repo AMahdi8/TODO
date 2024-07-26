@@ -4,12 +4,14 @@
 {% block title %}Delete Category{% endblock %}
 
 {% block content %}
-<h1>Confirm Deletion</h1>
-<p>Are you sure you want to delete the category "{{ category.name }}"?</p>
+<h1 class="my-3">Confirm Deletion</h1>
+<p class="mt-5 mb-3">Are you sure you want to delete the category "{{ category.name }}"?</p>
 
 <form method="post">
     {% csrf_token %}
-    <button type="submit">Yes, delete</button>
-    <a href="{% url 'tasks' %}">Cancel</a>
+    <div class="row d-flex justify-content-around">
+        <button class="col-3 btn btn-danger" type="submit">Yes, delete</button>
+        <a class="col-3  btn btn-primary" href="{% url 'tasks' %}">Cancel</a>
+    </div>
 </form>
 {% endblock %}

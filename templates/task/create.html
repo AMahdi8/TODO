@@ -44,7 +44,7 @@
                     <p>{{ form.category.errors }}</p>
                     {% endif %}
                 </div>
-                <div class="d-flex justify-content-end p-0 align-items-end col"><a class="btn btn-primary" href="">edit</a></div>
+                <div class="d-flex justify-content-end p-0 align-items-end col"><a class="btn btn-primary" href="{% url 'categories' %}">edit</a></div>
             </div>
             <div class="row mt-4 mx-auto mb-2">
                 <label for="{{ form.priority.id_for_label }}">Priority:</label>

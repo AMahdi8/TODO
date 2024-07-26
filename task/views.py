@@ -167,4 +167,5 @@ class CategoryList(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['categories'] = context['categories'].filter(
             user=self.request.user)
+        context['absolute_url'] = self.request.build_absolute_uri()
         return context

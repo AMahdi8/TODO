@@ -1,18 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+{% extends 'base.html' %}
 
-<body>
-    {% csrf_token %}
+{% block title %}categories{% endblock %}
+
+{% block content %}
+<div class="row mt-5">
+    <a class="btn btn-primary w-25 mx-auto" href="{% url 'create_category' %}">add category</a>
+</div>
+
+{% csrf_token %}
+<div class="row mt-5">
     {% for category in categories %}
-    {{ category.name }}
+    <div class="col-2">
+        <div class="row border border-1 rounded-3 bg-white g-2 align-item-center">
+            <div class="col mt-0">
+                <h5 class="mb-0  py-2 w-bold"> {{ category.name }}</h5>
+            </div>
+            <div class="col text-end align-content-center  mt-0">
+                <a class="text-danger py-2  h5" href="{{absolute_url}}{{category.id}}/delete/"><i class="py-2 bi bi-x-lg"></i></a>
+            </div>
+        </div>
+    </div>
     {% endfor %}
-</body>
 
-</html>
+</div>
+
+{% endblock %}
